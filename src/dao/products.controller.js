@@ -59,19 +59,20 @@ class ProductController {
      * @param {Object} req - Objeto de la solicitud que contiene los parámetros y el cuerpo
      * @param {Object} res - Objeto de respuesta para enviar respuestas HTTP
      */
-    delete = async (id) => {
+    delete = async (req, res) => {
+        const { id } = req.params; // Obtiene el ID desde los parámetros de la URL
         const cleanedId = id.trim(); // Limpia el ID eliminando espacios en blanco y saltos de línea
     
         try {
             const deletedProduct = await Product.findByIdAndDelete(cleanedId); // Elimina el producto
     
             if (!deletedProduct) {
-                return { status: "error", message: "Producto no encontrado" };
+                return res.status(404).json({ status: "error", message: "Producto no encontrado" });
             }
     
-            return { status: "success", message: "Producto eliminado exitosamente" };
+            return res.status(200).json({ status: "success", message: "Producto eliminado exitosamente" });
         } catch (err) {
-            return { status: "error", message: err.message };
+            return res.status(500).json({ status: "error", message: err.message });
         }
     };
 

@@ -21,10 +21,10 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', productController.update);
 
-// Ruta para eliminar un producto por ID
-router.delete('/:id', async (req, res) => {
-    const result = await productController.delete(req, res);
-    res.status(result.status === 'success' ? 200 : 404).json(result);
+
+router.delete('/:id', (req, res) => {
+    productController.delete(req, res); // `delete` ya maneja la respuesta
 });
+
 
 export default router;
