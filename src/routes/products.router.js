@@ -6,7 +6,27 @@ const router = Router();
 const productController = new ProductController();
 
 // Ruta para obtener la vista de productos
-router.get('/views', (req, res) => productController.renderProducts(req, res)); 
+router.get('/views', async (req, res) => {
+    try {
+        const products = await productController.getAllProducts();
+        res.render('products', { products });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// Ruta de búsqueda
+router.get('/search', async (req, res) => {
+    const { search } = req.query;  // Obtener el término de búsqueda de la URL
+    try {
+        // Llamar a la función de búsqueda del controlador
+        const products = await productController.searchProducts(req.query);  
+        res.render('products', { products });  // Renderizar la vista con los productos encontrados
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error al buscar productos');
+    }
+});
 
 
 router.get('/', async (req, res) => {

@@ -1,7 +1,7 @@
 // src/app.js
 import express from 'express';
 import mongoose from 'mongoose';
-import productsRouter from './routes/products.router.js'; // Asegúrate de que la ruta sea correcta
+import productsRouter from './routes/products.router.js'; 
 import ProductController from '../src/dao/products.controller.js';
 import config from './config.js';
 import { engine } from 'express-handlebars';
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.use('/api/products', productsRouter); // Asegúrate de que esta línea esté presente
+app.use('/api/products', productsRouter); 
 
 const productsController = new ProductController();
 

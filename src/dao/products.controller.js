@@ -96,6 +96,20 @@ class ProductController {
             res.status(500).send('Error al obtener los productos');
         }
     }
+    
+    // Función para manejar la búsqueda de productos por nombre
+    async searchProducts(query) {
+        const { search } = query;  // Obtener el término de búsqueda desde los parámetros de la URL
+        const filter = search ? { "payload.name": { $regex: search, $options: 'i' } } : {}; // Si hay un término de búsqueda, aplica el filtro
+
+        try {
+            // Realizar la búsqueda en la base de datos
+            const products = await Product.find(filter).lean();
+            return products;  // Devolver los productos encontrados
+        } catch (err) {
+            throw new Error('Error al buscar productos');
+        }
+    }
 
     // Otras funciones como add, update y delete
 }
