@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/static/styles.css"> <!-- Ruta al CSS -->
+    <!-- Agrega el enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    {{{body}}} <!-- Aquí se insertarán las vistas específicas -->
+<body class="bg-light">
+    <div class="container my-5">
+        {{{body}}} <!-- Aquí se insertarán las vistas específicas -->
+    </div>
+    <!-- Agrega el script de Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
