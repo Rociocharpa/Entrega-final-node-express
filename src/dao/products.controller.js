@@ -78,21 +78,22 @@ class ProductController {
 
 
 
-    renderProducts = async (req, res) => {
+    async getAllProducts() {
         try {
-            const products = await Product.find().lean(); // Obtiene todos los productos
-            res.render('products', { products }); // Renderiza la vista products.handlebars con los productos
-        } catch (err) {
-            res.status(500).json({ status: 'error', message: err.message });
-        }
-    };
-
-    // Método para obtener todos los productos
-    getAllProducts = async () => {
-        try {
-            return await Product.find().lean(); // Obtiene todos los productos
+            return await Product.find().lean(); // Devuelve directamente los productos planos
         } catch (err) {
             throw new Error(err.message);
+        }
+    }
+    
+    async renderProducts(req, res) {
+        try {
+            const products = await this.getAllProducts(); // Llama a `getAllProducts()` que devuelve un array de productos
+            res.render('productos', { products }); // Pasa `products` directamente a la vista
+            console.log(products)
+        } catch (error) {
+            console.error('Error al obtener productos:', error);
+            res.status(500).send('Error al obtener los productos');
         }
     }
 

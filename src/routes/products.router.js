@@ -6,7 +6,7 @@ const router = Router();
 const productController = new ProductController();
 
 // Ruta para obtener la vista de productos
-router.get('/views', productController.renderProducts); 
+router.get('/views', (req, res) => productController.renderProducts(req, res)); 
 
 
 router.get('/', async (req, res) => {

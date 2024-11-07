@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import productsRouter from './routes/products.router.js'; // Asegúrate de que la ruta sea correcta
+import ProductController from '../src/dao/products.controller.js';
 import config from './config.js';
 import { engine } from 'express-handlebars';
 import path from 'path'; // Asegúrate de importar 'path'
@@ -12,6 +13,8 @@ const app = express();
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(process.cwd(), 'src', 'views')); // Asegúrate de que la ruta sea correcta
+// Configura la ruta para servir archivos estáticos
+app.use('/static', express.static(path.join(process.cwd(), 'src', 'public')));
 
 // Middleware para parsear el cuerpo de las solicitudes
 app.use(express.json());
@@ -20,11 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use('/api/products', productsRouter); // Asegúrate de que esta línea esté presente
 
+const productsController = new ProductController();
+
 // Ruta para renderizar la vista de productos
 app.get('/views/products', async (req, res) => {
     try {
-        const products = await productsController.getAllProducts(); // Llama al controlador para obtener productos
-        res.render('products', { payload: products }); // Pasa los productos a la vista
+        const products = await productsController.getAllProducts();
+        res.render('products', { products }); // Pasa `products` directamente
     } catch (err) {
         res.status(500).json({ status: 'error', message: err.message });
     }
