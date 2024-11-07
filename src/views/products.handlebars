@@ -27,6 +27,9 @@
                 <td>{{this.price}}</td>
                 <td>{{this.description}}</td>
                 <td>{{this.stock}}</td>
+                <button class="add-to-cart" data-product-id="{{product._id}}">
+                <i class="fas fa-shopping-cart"></i> Agregar al carrito
+                </button>
             </tr>
             {{/each}}
             {{/each}}
