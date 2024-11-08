@@ -2,7 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import productsRouter from './routes/products.router.js';
-/*import cartRoutes from './routes/cart.router.js';*/ 
+import cartRoutes from './routes/cart.router.js';
 import ProductController from '../src/dao/products.controller.js';
 import config from './config.js';
 import { engine } from 'express-handlebars';
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use('/api/products', productsRouter); 
 
-/*app.use('/api/cart', cartRoutes); */
+app.use('/api/cart', cartRoutes);
 
 const productsController = new ProductController();
 

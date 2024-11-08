@@ -28,6 +28,6 @@ const schema = new mongoose.Schema({
     nextLink: { type: String, default: null },
 });
 
-const model = mongoose.model(collection, schema);
+const productModel = mongoose.model(collection, schema);
 
-export default model;
+export default productModel;
